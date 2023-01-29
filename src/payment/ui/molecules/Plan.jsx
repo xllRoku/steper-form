@@ -1,5 +1,7 @@
+import { getDefaultPrice } from '../../utils/getDefaultPrice';
+
 const Plan = ({ plan }) => {
-	const price = plan.prices[0].price;
+	const price = getDefaultPrice(plan);
 	const { title, image } = plan;
 	return (
 		<button

@@ -1,5 +1,6 @@
 import sideBar from './assets/images/bg-sidebar-desktop.svg';
 import PersonalInfo from './payment/ui/components/PersonalInfo';
+import PickAddons from './payment/ui/components/PickAddons';
 import SelectPlan from './payment/ui/components/SelectPlan';
 import Step from './payment/ui/molecules/Step';
 
@@ -35,7 +36,7 @@ function App() {
 					</div>
 				</div>
 				<div className='pt-8 px-20'>
-					<SelectPlan />
+					<PickAddons />
 				</div>
 			</div>
 		</main>
