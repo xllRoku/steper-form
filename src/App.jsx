@@ -19,7 +19,7 @@ function App() {
 					</div>
 				</div>
 				<div className='pt-8 px-20'>
-					<Summary />
+					<PersonalInfo />
 				</div>
 			</div>
 		</main>

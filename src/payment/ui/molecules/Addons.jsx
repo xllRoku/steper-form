@@ -3,7 +3,6 @@ import { getDefaultPrice } from '../../utils/getDefaultPrice';
 const Addons = ({ addon }) => {
 	const { title, content } = addon;
 	const price = getDefaultPrice(addon);
-	console.log(price);
 
 	return (
 		<div className='w-[480px] flex justify-between items-center border-[1px] border-black p-4 rounded-md '>

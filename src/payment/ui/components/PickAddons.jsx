@@ -11,11 +11,11 @@ const PickAddons = () => {
 				Add-ons help enhance your gaming experience.
 			</p>
 			<div>
-				<div className='flex flex-col gap-6 mt-6'>
+				<form className='flex flex-col gap-6 mt-6'>
 					{ADDOS.map(addon => (
 						<Addons addon={addon} />
 					))}
-				</div>
+				</form>
 			</div>
 		</>
 	);
