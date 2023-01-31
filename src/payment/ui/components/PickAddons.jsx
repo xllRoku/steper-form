@@ -1,31 +1,5 @@
+import { ADDOS } from '../../constans';
 import Addons from '../molecules/Addons';
-
-export const ADDOS = [
-	{
-		title: 'Online service',
-		content: 'Access to multiplaer games',
-		prices: [
-			{ price: 1, annuality: 'monthly' },
-			{ price: 10, annuality: 'yearly' }
-		]
-	},
-	{
-		title: 'Larger storage',
-		content: 'Extra 1TB of cloud save',
-		prices: [
-			{ price: 2, annuality: 'monthly' },
-			{ price: 20, annuality: 'yearly' }
-		]
-	},
-	{
-		title: 'Customizable profile',
-		content: 'Custom theme on your profile',
-		prices: [
-			{ price: 2, annuality: 'monthly' },
-			{ price: 20, annuality: 'yearly' }
-		]
-	}
-];
 
 const PickAddons = () => {
 	return (

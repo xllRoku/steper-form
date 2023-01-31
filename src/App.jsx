@@ -1,27 +1,10 @@
+import { STEPS } from './payment/constans';
 import sideBar from './assets/images/bg-sidebar-desktop.svg';
-import PersonalInfo from './payment/ui/components/PersonalInfo';
-import PickAddons from './payment/ui/components/PickAddons';
-import SelectPlan from './payment/ui/components/SelectPlan';
 import Step from './payment/ui/molecules/Step';
-
-const STEPS = [
-	{
-		stepNumber: '1',
-		title: 'your info'
-	},
-	{
-		stepNumber: '2',
-		title: 'select plan'
-	},
-	{
-		stepNumber: '3',
-		title: 'add-ons'
-	},
-	{
-		stepNumber: '4',
-		title: 'summary'
-	}
-];
+import PersonalInfo from './payment/ui/components/PersonalInfo';
+import SelectPlan from './payment/ui/components/SelectPlan';
+import PickAddons from './payment/ui/components/PickAddons';
+import Summary from './payment/ui/components/Summary';
 
 function App() {
 	return (
@@ -36,7 +19,7 @@ function App() {
 					</div>
 				</div>
 				<div className='pt-8 px-20'>
-					<PickAddons />
+					<Summary />
 				</div>
 			</div>
 		</main>
