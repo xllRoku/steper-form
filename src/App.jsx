@@ -1,10 +1,15 @@
 import { STEPS } from './payment/constans';
 import sideBar from './assets/images/bg-sidebar-desktop.svg';
 import Step from './payment/ui/molecules/Step';
-import PersonalInfo from './payment/ui/components/PersonalInfo';
-import SelectPlan from './payment/ui/components/SelectPlan';
-import PickAddons from './payment/ui/components/PickAddons';
-import Summary from './payment/ui/components/Summary';
+import PersonalInfo from './payment/ui/views/PersonalInfo';
+import PickAddons from './payment/ui/views/PickAddons';
+import Summary from './payment/ui/views/Summary';
+import { PlanMemoryService } from './payment/domain/services/PlanMemory.service';
+import { SelectPlanFactory } from './payment/ui/views/SelectPlan';
+import PlanProvider from './payment/context/Plan/PlanProvider';
+
+const planService = PlanMemoryService();
+const SelectPlanView = SelectPlanFactory(planService);
 
 function App() {
 	return (
@@ -19,7 +24,9 @@ function App() {
 					</div>
 				</div>
 				<div className='pt-8 px-20'>
-					<PersonalInfo />
+					<PlanProvider>
+						<SelectPlanView />
+					</PlanProvider>
 				</div>
 			</div>
 		</main>
