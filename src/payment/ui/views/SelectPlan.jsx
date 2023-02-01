@@ -6,10 +6,14 @@ import { If } from '../components/If';
 import { Then } from '../components/Then';
 import { Else } from '../components/Else';
 import { getPlansByAnnuality } from '../../utils/getPlansByAnnuality';
-import StepperController from '../molecules/StepperController';
+import StepperController from '../components/StepperController';
+import useSetLocation from '../../lib/hooks/useSetLocation';
+import useWhichContext from '../../lib/hooks/useWhichContext';
 
 const SelectPlanFactory = planService => {
 	return function SelectPlanView() {
+		useSetLocation();
+		const { setActualStep } = useWhichContext();
 		const { infoPlan } = usePlanContext();
 		const [plansApi, setPlans] = useState({
 			plans: [],
@@ -32,6 +36,15 @@ const SelectPlanFactory = planService => {
 			})();
 		}, []);
 
+		const handleOnSubmit = event => {
+			event.preventDefault();
+			console.log('helo world');
+			if (infoPlan.title) {
+				setActualStep(prev => ({ ...prev, completed: true }));
+				console.log('you');
+			}
+		};
+
 		return (
 			<>
 				<h2 className='font-bold text-marine-blue text-4xl'>
@@ -40,7 +53,10 @@ const SelectPlanFactory = planService => {
 				<p className='text-cool-gray'>
 					You have the option of monthly or yearly billing
 				</p>
-				<form className='flex flex-col  gap-6 mt-6'>
+				<form
+					className='flex flex-col  gap-6 mt-6'
+					onSubmit={handleOnSubmit}
+				>
 					<div className='flex gap-6'>
 						<If predicate={plansApi.loading}>
 							<Then>
@@ -51,12 +67,6 @@ const SelectPlanFactory = planService => {
 									<Plan
 										key={plan.title}
 										plan={plan}
-										selectedPlan={
-											selectedPlan
-										}
-										setSelectedPlan={
-											setSelectedPlan
-										}
 									/>
 								))}
 							</Else>

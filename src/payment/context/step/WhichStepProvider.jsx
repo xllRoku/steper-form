@@ -2,9 +2,12 @@ import { useState } from 'react';
 import { WhichStepContext } from './WhichStepContext';
 
 const WhichStepProvider = ({ children }) => {
-	const [actualStep, setAcutualStep] = useState({});
+	const [actualStep, setActualStep] = useState({
+		whichIs: '',
+		completed: null
+	});
 	return (
-		<WhichStepContext.Provider value={{ actualStep, setAcutualStep }}>
+		<WhichStepContext.Provider value={{ actualStep, setActualStep }}>
 			{children}
 		</WhichStepContext.Provider>
 	);

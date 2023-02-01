@@ -1,6 +1,9 @@
 import { useForm } from '../../lib/hooks/useForm';
 import InputText from '../atoms/InputText';
-import StepperController from '../molecules/StepperController';
+import StepperController from '../components/StepperController';
+import useSetLocation from '../../lib/hooks/useSetLocation';
+import { useEffect } from 'react';
+import useWhichContext from '../../lib/hooks/useWhichContext';
 
 const FORM_NAMES = {
 	NAME: 'name',
@@ -41,10 +44,16 @@ const validationRules = {
 };
 
 const PersonalInfo = () => {
-	const { handleOnChange, handleOnSubmit, errors } = useForm(
+	useSetLocation();
+	const { setActualStep } = useWhichContext();
+	const { handleOnChange, handleOnSubmit, errors, completed } = useForm(
 		initialValues,
 		validationRules
 	);
+
+	useEffect(() => {
+		setActualStep(prev => ({ ...prev, completed }));
+	}, [completed]);
 
 	return (
 		<>

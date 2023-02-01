@@ -5,10 +5,16 @@ import { Else } from '../components/Else';
 import { If } from '../components/If';
 import { Then } from '../components/Then';
 import Addons from '../molecules/Addons';
-import StepperController from '../molecules/StepperController';
+import StepperController from '../components/StepperController';
+import useSetLocation from '../../lib/hooks/useSetLocation';
+import { useAddonContext } from '../../lib/hooks/useAddonContext';
+import useWhichContext from '../../lib/hooks/useWhichContext';
 
 const PickAddonsFactory = addonService => {
 	return function PickAddonsView() {
+		useSetLocation();
+		const { addons: addonsCtx } = useAddonContext();
+		const { setActualStep } = useWhichContext();
 		const { infoPlan } = usePlanContext();
 		const [addonsApi, setAddos] = useState({
 			addons: [],
@@ -30,6 +36,13 @@ const PickAddonsFactory = addonService => {
 			})();
 		}, []);
 
+		const handleOnSumbit = event => {
+			event.preventDefault();
+			if (addonsCtx.length !== 0) {
+				setActualStep(prev => ({ ...prev, completed: true }));
+			}
+		};
+
 		return (
 			<>
 				<h2 className='font-bold text-marine-blue text-4xl'>
@@ -39,7 +52,10 @@ const PickAddonsFactory = addonService => {
 					Add-ons help enhance your gaming experience.
 				</p>
 				<div>
-					<form className='flex flex-col gap-6 mt-6'>
+					<form
+						className='flex flex-col gap-6 mt-6'
+						onSubmit={handleOnSumbit}
+					>
 						<If predicate={addonsApi.loading}>
 							<Then>
 								<Skeleton />

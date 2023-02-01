@@ -1,13 +1,13 @@
 import { useReducer } from 'react';
 import { formReducer, FORM_ACTIONS } from '../reducers/form.reducer';
+import useWhichContext from './useWhichContext';
 
 export const useForm = (initialValues, validationRules) => {
 	const [formState, dispatch] = useReducer(formReducer, {
 		values: initialValues,
 		errors: {},
-		completed: false
+		completed: null
 	});
-
 	const { completed, errors } = formState;
 
 	const handleOnChange = e => {
@@ -17,7 +17,10 @@ export const useForm = (initialValues, validationRules) => {
 
 	const handleOnSubmit = e => {
 		e.preventDefault();
-		dispatch({ type: FORM_ACTIONS.SUBMIT, validationRules });
+		dispatch({
+			type: FORM_ACTIONS.SUBMIT,
+			validationRules
+		});
 	};
 
 	return { completed, errors, handleOnChange, handleOnSubmit };

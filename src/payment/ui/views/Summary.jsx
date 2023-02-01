@@ -1,7 +1,12 @@
+import { useLocation } from 'react-router-dom';
 import { useAddonContext } from '../../lib/hooks/useAddonContext';
 import { usePlanContext } from '../../lib/hooks/usePlanContext';
+import StepperController from '../components/StepperController';
 
 const Summary = () => {
+	const location = useLocation();
+	console.log(location.pathname);
+
 	const { infoPlan } = usePlanContext();
 	const { addons } = useAddonContext();
 
@@ -59,6 +64,7 @@ const Summary = () => {
 						</p>
 					</div>
 				</div>
+				<StepperController />
 			</div>
 		</>
 	);

@@ -36,9 +36,9 @@ const Switch = () => {
 			<div className='w-full h-full relative flex items-center'>
 				<span
 					className={classNames(
-						'w-4 h-4 bg-white rounded-full transition-all duration-500 cursor-pointer',
+						'w-4 h-4 bg-white rounded-full transition-all duration-500 cursor-pointer absolute',
 						{
-							'ml-8': isSelected
+							'ml-8 ': isSelected
 						}
 					)}
 					onClick={handleOnClick}
