@@ -1,23 +1,28 @@
 import arcade from '../../assets/images/icon-arcade.svg';
 import advanced from '../../assets/images/icon-advanced.svg';
 import iconPro from '../../assets/images/icon-pro.svg';
+import { ROUTES } from '../ui/components/StepperController';
 
 export const STEPS = [
 	{
 		stepNumber: '1',
-		title: 'your info'
+		title: 'your info',
+		url: ROUTES.YOUR_INFO
 	},
 	{
 		stepNumber: '2',
-		title: 'select plan'
+		title: 'select plan',
+		url: ROUTES.SELECT_PLAN
 	},
 	{
 		stepNumber: '3',
-		title: 'add-ons'
+		title: 'add-ons',
+		url: ROUTES.ADD_ONS
 	},
 	{
 		stepNumber: '4',
-		title: 'summary'
+		title: 'summary',
+		url: ROUTES.SUMMARY
 	}
 ];
 
