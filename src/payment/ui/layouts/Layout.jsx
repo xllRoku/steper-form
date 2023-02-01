@@ -7,7 +7,7 @@ const Layout = () => {
 		<main className='h-screen flex justify-center items-center'>
 			<div className='flex  bg-white p-4  rounded-md'>
 				<SideBar />
-				<div className='pt-8 px-20'>
+				<div className='m-8 mx-20 mb-0 relative'>
 					<Outlet />
 				</div>
 			</div>

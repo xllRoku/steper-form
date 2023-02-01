@@ -5,6 +5,7 @@ import { Else } from '../components/Else';
 import { If } from '../components/If';
 import { Then } from '../components/Then';
 import Addons from '../molecules/Addons';
+import StepperController from '../molecules/StepperController';
 
 const PickAddonsFactory = addonService => {
 	return function PickAddonsView() {
@@ -52,6 +53,7 @@ const PickAddonsFactory = addonService => {
 								))}
 							</Else>
 						</If>
+						<StepperController />
 					</form>
 				</div>
 			</>

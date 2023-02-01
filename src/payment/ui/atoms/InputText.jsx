@@ -16,7 +16,9 @@ const InputText = ({ label, name, handleOnChange, error }) => {
 			</div>
 			<input
 				type='text'
-				className='p-2 rounded-lg border-[1px] hover:border-purplish-blue focus:border-purplish-blue'
+				className={`p-2 rounded-lg border-[1px] hover:border-purplish-blue focus:border-purplish-blue
+				${errorMessage ? 'border-red-500 border-[1px]' : ''}
+				`}
 				name={name}
 				onChange={handleOnChange}
 			/>

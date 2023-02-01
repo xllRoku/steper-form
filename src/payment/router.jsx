@@ -8,6 +8,7 @@ import { PlanMemoryService } from './domain/services/PlanMemory.service';
 import { AddonMemoryService } from './domain/services/AddonMemory.service';
 import PickAddonsFactory from './ui/views/PickAddons';
 import WhichStepProvider from './context/step/WhichStepProvider';
+import Layout from './ui/layouts/Layout';
 
 const planService = PlanMemoryService();
 const SelectPlanView = SelectPlanFactory(planService);

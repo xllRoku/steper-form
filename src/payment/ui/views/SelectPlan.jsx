@@ -6,6 +6,7 @@ import { If } from '../components/If';
 import { Then } from '../components/Then';
 import { Else } from '../components/Else';
 import { getPlansByAnnuality } from '../../utils/getPlansByAnnuality';
+import StepperController from '../molecules/StepperController';
 
 const SelectPlanFactory = planService => {
 	return function SelectPlanView() {
@@ -15,12 +16,19 @@ const SelectPlanFactory = planService => {
 			loading: true
 		});
 		const [selectedPlan, setSelectedPlan] = useState(null);
-		const plans = getPlansByAnnuality(plansApi.plans, infoPlan.annuality);
+		const plans = getPlansByAnnuality(
+			plansApi.plans,
+			infoPlan.annuality
+		);
 
 		useEffect(() => {
 			(async () => {
 				const data = await planService.getPlan();
-				setPlans(prev => ({ ...prev, plans: data, loading: false }));
+				setPlans(prev => ({
+					...prev,
+					plans: data,
+					loading: false
+				}));
 			})();
 		}, []);
 
@@ -43,8 +51,12 @@ const SelectPlanFactory = planService => {
 									<Plan
 										key={plan.title}
 										plan={plan}
-										selectedPlan={selectedPlan}
-										setSelectedPlan={setSelectedPlan}
+										selectedPlan={
+											selectedPlan
+										}
+										setSelectedPlan={
+											setSelectedPlan
+										}
 									/>
 								))}
 							</Else>
@@ -59,6 +71,7 @@ const SelectPlanFactory = planService => {
 							yearly
 						</p>
 					</div>
+					<StepperController />
 				</form>
 			</>
 		);

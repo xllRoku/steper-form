@@ -1,5 +1,6 @@
 import { useForm } from '../../lib/hooks/useForm';
 import InputText from '../atoms/InputText';
+import StepperController from '../molecules/StepperController';
 
 const FORM_NAMES = {
 	NAME: 'name',
@@ -23,8 +24,7 @@ const validationRules = {
 	},
 	email: {
 		required: true,
-		pattern:
-			/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+		pattern: /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
 		errorMessage: {
 			generic: 'This field is required',
 			unique: 'El correo electrónico no es válido'
@@ -53,7 +53,8 @@ const PersonalInfo = () => {
 					Personal info
 				</h2>
 				<p className='text-cool-gray'>
-					Please provide your name, email address, and phone number.
+					Please provide your name, email address, and phone
+					number.
 				</p>
 			</header>
 			<form className=' mt-10' onSubmit={handleOnSubmit}>
@@ -83,7 +84,7 @@ const PersonalInfo = () => {
 						/>
 					</div>
 				</div>
-				<button type='submit'>login</button>
+				<StepperController />
 			</form>
 		</>
 	);
