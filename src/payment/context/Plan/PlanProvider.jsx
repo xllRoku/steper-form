@@ -2,13 +2,17 @@ import React, { useState } from 'react';
 import { PlanContext } from './PlanContext';
 
 const PlanProvider = ({ children }) => {
-	const [planSelected, setPlanSelected] = useState();
+	const [infoPlan, setInfoPlan] = useState({
+		title: '',
+		price: null,
+		annuality: 'monthly'
+	});
 
 	return (
 		<PlanContext.Provider
 			value={{
-				planSelected,
-				setPlanSelected
+				infoPlan,
+				setInfoPlan
 			}}
 		>
 			{children}
