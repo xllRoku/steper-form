@@ -68,14 +68,14 @@ const SelectPlanFactory = planService => {
 const Skeleton = () => {
 	const COUNTER = 3;
 	return Array(COUNTER).fill(
-		<button className='w-40 h-44  border-[1px]   p-4 rounded-md flex flex-col justify-between bg-[#313131] skeleton'>
-			<div className='w-[40px] h-[42px] bg-gray-500 rounded-full' />
+		<button className='w-40 h-44  border-[1px]   p-4 rounded-md flex flex-col justify-between '>
+			<div className='w-[40px] h-[42px]  rounded-full loader' />
 			<div className='flex flex-col items-start'>
 				<p
-					className='w-[64px] h-[16px] bg-gray-500
-				rounded-full mb-2'
+					className='w-[80px] h-[16px] 
+				rounded-full mb-2 loader'
 				></p>
-				<span className='w-[52px] h-[16px] bg-gray-500 rounded-full'></span>
+				<span className='w-[52px] h-[16px]  rounded-full loader'></span>
 			</div>
 		</button>
 	);

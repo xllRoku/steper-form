@@ -11,7 +11,6 @@ const Addons = ({ addon }) => {
 						<span>{content}</span>
 					</div>
 				</div>
-				<span className='text-purplish-blue'> +{price}/mo </span>
 			</div>
 		</div>
 	);

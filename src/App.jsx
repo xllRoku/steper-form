@@ -7,9 +7,13 @@ import Summary from './payment/ui/views/Summary';
 import { PlanMemoryService } from './payment/domain/services/PlanMemory.service';
 import { SelectPlanFactory } from './payment/ui/views/SelectPlan';
 import PlanProvider from './payment/context/Plan/PlanProvider';
+import { AddonMemoryService } from './payment/domain/services/AddonMemory.service';
+import PickAddonsFactory from './payment/ui/views/PickAddons';
 
 const planService = PlanMemoryService();
 const SelectPlanView = SelectPlanFactory(planService);
+const addonService = AddonMemoryService();
+const PickAddonView = PickAddonsFactory(addonService);
 
 function App() {
 	return (
