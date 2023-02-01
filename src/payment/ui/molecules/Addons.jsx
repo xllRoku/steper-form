@@ -12,19 +12,22 @@ const Addons = ({ addon }) => {
 	const isMonthly = infoPlan.annuality === ANNUALITY.MONTHLY;
 	const isYearly = infoPlan.annuality === ANNUALITY.YEARLY;
 
+	const findAddon = addons => addons.find(addon => addon.title === title);
+
+	const handleAddonSelection = (title, price, checked) => {
+		if (checked) {
+			setAddons(prev => [...prev, { title, price }]);
+		} else {
+			const removeAddon = addons.filter(
+				addon => addon.title !== title
+			);
+			setAddons(removeAddon);
+		}
+	};
 	const handleOnChange = event => {
 		const checked = event.target.checked;
-		const exists = addons.find(addon => addon.title === title);
-
-		if (checked && !exists)
-			setAddons(prev => [...prev, { title, price }]);
-		if (!checked && exists) {
-			const remove = addons.filter(
-				addons => addons.title !== title
-			);
-			setAddons(remove);
-		}
-
+		const exists = findAddon(addons);
+		handleAddonSelection(title, price, checked && !exists);
 		setSelectedAddon(!selectedAddon);
 	};
 
