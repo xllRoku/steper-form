@@ -3,18 +3,24 @@ import Switch from '../molecules/Switch';
 import { useEffect, useState } from 'react';
 import { getPlansByAnnuality } from '../../utils/getPricesByAnnuality';
 import { usePlanContext } from '../../lib/hooks/usePlanContext';
+import { If } from '../components/If';
+import { Then } from '../components/Then';
+import { Else } from '../components/Else';
 
 const SelectPlanFactory = planService => {
 	return function SelectPlanView() {
 		const { infoPlan } = usePlanContext();
-		const [plansApi, setPlans] = useState([]);
+		const [plansApi, setPlans] = useState({
+			plans: [],
+			loading: true
+		});
 		const [selectedPlan, setSelectedPlan] = useState(null);
-		const plans = getPlansByAnnuality(plansApi, infoPlan.annuality);
+		const plans = getPlansByAnnuality(plansApi.plans, infoPlan.annuality);
 
 		useEffect(() => {
 			(async () => {
 				const data = await planService.getPlan();
-				setPlans(data);
+				setPlans(prev => ({ ...prev, plans: data, loading: false }));
 			})();
 		}, []);
 
@@ -28,14 +34,21 @@ const SelectPlanFactory = planService => {
 				</p>
 				<form className='flex flex-col  gap-6 mt-6'>
 					<div className='flex gap-6'>
-						{plans.map(plan => (
-							<Plan
-								key={plan.title}
-								plan={plan}
-								selectedPlan={selectedPlan}
-								setSelectedPlan={setSelectedPlan}
-							/>
-						))}
+						<If predicate={plansApi.loading}>
+							<Then>
+								<Skeleton />
+							</Then>
+							<Else>
+								{plans.map(plan => (
+									<Plan
+										key={plan.title}
+										plan={plan}
+										selectedPlan={selectedPlan}
+										setSelectedPlan={setSelectedPlan}
+									/>
+								))}
+							</Else>
+						</If>
 					</div>
 					<div className='flex gap-6 justify-center items-center bg-magnolia p-4 rounded-md'>
 						<p className='text-marine-blue font-bold capitalize'>
@@ -50,6 +63,22 @@ const SelectPlanFactory = planService => {
 			</>
 		);
 	};
+};
+
+const Skeleton = () => {
+	const COUNTER = 3;
+	return Array(COUNTER).fill(
+		<button className='w-40 h-44  border-[1px]   p-4 rounded-md flex flex-col justify-between bg-[#313131] skeleton'>
+			<div className='w-[40px] h-[42px] bg-gray-500 rounded-full' />
+			<div className='flex flex-col items-start'>
+				<p
+					className='w-[64px] h-[16px] bg-gray-500
+				rounded-full mb-2'
+				></p>
+				<span className='w-[52px] h-[16px] bg-gray-500 rounded-full'></span>
+			</div>
+		</button>
+	);
 };
 
 export { SelectPlanFactory };

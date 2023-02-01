@@ -31,3 +31,42 @@ button:focus {
 body {
 	font-family: 'Ubuntu';
 }
+
+.skeleton {
+	animation: skeleton 4s ease infinite alternate;
+}
+
+@keyframes skeleton {
+	10% {
+		opacity: 0.6;
+	}
+
+	20% {
+		opacity: 0.8;
+	}
+
+	30% {
+		opacity: 1;
+	}
+	40% {
+		opacity: 0.6;
+	}
+	50% {
+		opacity: 0.8;
+	}
+	60% {
+		opacity: 1;
+	}
+	70% {
+		opacity: 0.6;
+	}
+	80% {
+		opacity: 8;
+	}
+	90% {
+		opacity: 1;
+	}
+	100% {
+		opacity: 1;
+	}
+}

@@ -2,7 +2,11 @@ import { PLANS } from '../../constans';
 
 function PlanMemoryService() {
 	function getPlan() {
-		return Promise.resolve(PLANS);
+		return new Promise((resolve, _) => {
+			setTimeout(() => {
+				resolve(PLANS);
+			}, 1000);
+		});
 	}
 
 	return { getPlan };
