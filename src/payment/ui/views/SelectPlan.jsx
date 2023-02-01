@@ -1,11 +1,11 @@
 import Plan from '../molecules/Plan';
 import Switch from '../molecules/Switch';
 import { useEffect, useState } from 'react';
-import { getPlansByAnnuality } from '../../utils/getPricesByAnnuality';
 import { usePlanContext } from '../../lib/hooks/usePlanContext';
 import { If } from '../components/If';
 import { Then } from '../components/Then';
 import { Else } from '../components/Else';
+import { getPlansByAnnuality } from '../../utils/getPlansByAnnuality';
 
 const SelectPlanFactory = planService => {
 	return function SelectPlanView() {

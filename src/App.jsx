@@ -6,9 +6,10 @@ import PickAddons from './payment/ui/views/PickAddons';
 import Summary from './payment/ui/views/Summary';
 import { PlanMemoryService } from './payment/domain/services/PlanMemory.service';
 import { SelectPlanFactory } from './payment/ui/views/SelectPlan';
-import PlanProvider from './payment/context/Plan/PlanProvider';
+import PlanProvider from './payment/context/plan/PlanProvider';
 import { AddonMemoryService } from './payment/domain/services/AddonMemory.service';
 import PickAddonsFactory from './payment/ui/views/PickAddons';
+import AddonProvider from './payment/context/addon/AddonProvider';
 
 const planService = PlanMemoryService();
 const SelectPlanView = SelectPlanFactory(planService);
@@ -29,7 +30,9 @@ function App() {
 				</div>
 				<div className='pt-8 px-20'>
 					<PlanProvider>
-						<SelectPlanView />
+						<AddonProvider>
+							<PickAddonView />
+						</AddonProvider>
 					</PlanProvider>
 				</div>
 			</div>

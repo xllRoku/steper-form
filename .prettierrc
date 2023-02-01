@@ -1,7 +1,7 @@
 {
 	"useTabs": true,
 	"semi": true,
-	"tabWidth": 4,
+	"tabWidth": 6,
 	"singleQuote": true,
 	"endOfLine": "lf",
 	"jsxSingleQuote": true,

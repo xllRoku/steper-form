@@ -1,12 +1,8 @@
 import classNames from 'classnames';
 import { useState } from 'react';
+import { ANNUALITY } from '../../constans';
 import { usePlanContext } from '../../lib/hooks/usePlanContext';
 import { findPrice } from '../../utils/findPrice';
-
-export const ANNUALITY = {
-	MONTHLY: 'monthly',
-	YEARLY: 'yearly'
-};
 
 const Switch = () => {
 	const { infoPlan, setInfoPlan } = usePlanContext();

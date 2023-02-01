@@ -74,3 +74,8 @@ export const ADDOS = [
 		]
 	}
 ];
+
+export const ANNUALITY = {
+	MONTHLY: 'monthly',
+	YEARLY: 'yearly'
+};
