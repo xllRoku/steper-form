@@ -9,7 +9,7 @@ const DIRECTION = {
 
 const StepperController = () => {
 	const navigate = useNavigate();
-	const { path, setStepCompleted } = useStore();
+	const { path, SET_STEP_COMPLETED } = useStore();
 
 	const currentRoute = path.whichIs;
 	const isCompleted = path.completed;
@@ -23,7 +23,7 @@ const StepperController = () => {
 			const nextRoute = routes[currentIndex + 1];
 			navigate(`${nextRoute}`);
 			const completed = false;
-			setStepCompleted(completed);
+			SET_STEP_COMPLETED(completed);
 		} else if (direction === DIRECTION.BACK) {
 			const prevRoute = routes[currentIndex - 1];
 			if (prevRoute === '/') navigate('/');

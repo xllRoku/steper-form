@@ -5,16 +5,16 @@ import { useStore } from '../../context/store';
 import { findPrice } from '../../lib/utils/findPrice';
 
 const Switch = () => {
-	const { plan: planInfo, changePrice, setAnnuality } = useStore();
+	const { plan: planInfo, CHANGE_PRICE, SET_ANNUALITY } = useStore();
 	const [isSelected, setIsSelected] = useState();
 
 	const changeInfoPlan = annuality => {
 		const planAlreadyPicked = planInfo.title;
 		if (planAlreadyPicked) {
 			const newPrice = findPrice(planInfo.title, annuality);
-			changePrice(newPrice);
+			CHANGE_PRICE({ newPrice });
 		}
-		setAnnuality(annuality);
+		SET_ANNUALITY({ annuality });
 	};
 
 	const getNewAnnuality = () => {

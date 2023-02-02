@@ -10,44 +10,43 @@ const StoreProvider = ({ children }) => {
 	const { state: addon, dispatch: dispatchAddon } = useAddonContext();
 	const { state: path, dispatch: dispatchPath } = usePathContext();
 
-	const storeValue = {
-		plan,
-		setPlan: (title, price) => {
-			dispatchPlan({ type: PLAN_ACTIONS.SET_PLAN, title, price });
+	const contexts = [
+		{
+			state: plan,
+			dispatch: dispatchPlan,
+			actions: PLAN_ACTIONS
 		},
-		changePrice: newPrice => {
-			dispatchPlan({ type: PLAN_ACTIONS.CHANGE_PRICE, newPrice });
+		{
+			state: addon,
+			dispatch: dispatchAddon,
+			actions: ADDON_ACTIONS
 		},
-		setAnnuality: annuality => {
-			dispatchPlan({ type: PLAN_ACTIONS.SET_ANNUALITY, annuality });
-		},
-		removePlan: () => dispatchPlan({ type: PLAN_ACTIONS.REMOVE_PLAN }),
-		addon,
-		setAddon: (title, price) => {
-			dispatchAddon({ type: ADDON_ACTIONS.SET_ADDON, title, price });
-		},
-		removeAddon: title => {
-			dispatchAddon({ type: ADDON_ACTIONS.REMOVE_ADDON, title });
-		},
-		path,
-		setStepCompleted: completed => {
-			dispatchPath({ type: PATH_ACTIONS.SET_COMPLETED, completed });
-		},
-		setPathName: pathname => {
-			dispatchPath({ type: PATH_ACTIONS.SET_PAHTNAME, pathname });
+		{
+			state: path,
+			dispatch: dispatchPath,
+			actions: PATH_ACTIONS
 		}
-	};
+	];
+
+	const storeValue2 = {};
+	contexts.forEach(({ dispatch, actions }) => {
+		Object.entries(actions).forEach(([actionName, actionType]) => {
+			storeValue2[`${actionName}`] = payload => {
+				dispatch({ type: actionType, ...payload });
+			};
+		});
+	});
 
 	const {
-		setPlan,
-		changePrice,
-		setAnnuality,
-		removePlan,
-		setAddon,
-		removeAddon,
-		setStepCompleted,
-		setPathName
-	} = storeValue;
+		SET_PLAN,
+		CHANGE_PRICE,
+		SET_ANNUALITY,
+		REMOVE_PLAN,
+		SET_STEP_COMPLETED,
+		SET_PAHTNAME,
+		SET_ADDON,
+		REMOVE_ADDON
+	} = storeValue2;
 
 	return (
 		<Store.Provider
@@ -62,7 +61,16 @@ const StoreProvider = ({ children }) => {
 				removeAddon,
 				path,
 				setStepCompleted,
-				setPathName
+				setPathName,
+				storeValue2,
+				SET_PLAN,
+				CHANGE_PRICE,
+				SET_ANNUALITY,
+				REMOVE_PLAN,
+				SET_STEP_COMPLETED,
+				SET_PAHTNAME,
+				SET_ADDON,
+				REMOVE_ADDON
 			}}
 		>
 			{children}

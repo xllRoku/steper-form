@@ -1,14 +1,14 @@
 import { useStore } from '../../context/store';
 
 const Plan = ({ plan }) => {
-	const { plan: planInfo, removePlan, setPlan } = useStore();
+	const { plan: planInfo, REMOVE_PLAN, SET_PLAN } = useStore();
 	const { title, image, price } = plan;
 
 	const handleOnClick = () => {
 		if (planInfo.title) {
-			removePlan();
+			REMOVE_PLAN();
 		} else {
-			setPlan(title, price);
+			SET_PLAN({ title, price });
 		}
 	};
 

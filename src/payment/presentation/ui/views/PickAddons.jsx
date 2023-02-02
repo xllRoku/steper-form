@@ -13,7 +13,7 @@ const PickAddonsFactory = addonService => {
 		useSetLocation();
 		const {
 			addon: addonsInfo,
-			setStepCompleted,
+			SET_STEP_COMPLETED,
 			plan: planInfo
 		} = useStore();
 		const [addonsApi, setAddos] = useState({
@@ -40,7 +40,8 @@ const PickAddonsFactory = addonService => {
 		const handleOnSumbit = event => {
 			event.preventDefault();
 			const completed = true;
-			if (addonsInfo.addons.length !== 0) setStepCompleted(completed);
+			if (addonsInfo.addons.length !== 0)
+				SET_STEP_COMPLETED({ completed });
 		};
 
 		return (

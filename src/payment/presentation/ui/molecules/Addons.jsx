@@ -7,8 +7,8 @@ const Addons = ({ addon }) => {
 	const {
 		plan: planInfo,
 		addon: addonsInfo,
-		setAddon,
-		removeAddon
+		SET_ADDON,
+		REMOVE_ADDON
 	} = useStore();
 	const [selectedAddon, setSelectedAddon] = useState(null);
 	const { title, content, price } = addon;
@@ -20,9 +20,9 @@ const Addons = ({ addon }) => {
 
 	const handleAddonSelection = (title, price, checked) => {
 		if (checked) {
-			setAddon(title, price);
+			SET_ADDON({ title, price });
 		} else {
-			removeAddon(title);
+			REMOVE_ADDON({ title });
 		}
 	};
 

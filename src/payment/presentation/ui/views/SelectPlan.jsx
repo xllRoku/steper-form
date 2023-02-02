@@ -12,7 +12,7 @@ import { useStore } from '../../context/store';
 const SelectPlanFactory = planService => {
 	return function SelectPlanView() {
 		useSetLocation();
-		const { setStepCompleted, plan: planInfo } = useStore();
+		const { SET_STEP_COMPLETED, plan: planInfo } = useStore();
 		const [plansApi, setPlans] = useState({
 			plans: [],
 			loading: true
@@ -34,7 +34,7 @@ const SelectPlanFactory = planService => {
 			event.preventDefault();
 			if (planInfo.title) {
 				const completed = true;
-				setStepCompleted(completed);
+				SET_STEP_COMPLETED({ completed });
 			}
 		};
 

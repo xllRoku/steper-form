@@ -4,11 +4,11 @@ import { useStore } from '../../context/store';
 
 const useSetLocation = () => {
 	const location = useLocation();
-	const { setPathName } = useStore();
+	const { SET_PAHTNAME } = useStore();
 	const pathname = location.pathname;
 
 	useEffect(() => {
-		setPathName(pathname);
+		SET_PAHTNAME({ pathname });
 	}, []);
 };
 

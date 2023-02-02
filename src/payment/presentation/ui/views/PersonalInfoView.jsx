@@ -8,14 +8,14 @@ import { useStore } from '../../context/store';
 
 const PersonalInfoView = () => {
 	useSetLocation();
-	const { setStepCompleted } = useStore();
+	const { storeValue2, SET_STEP_COMPLETED } = useStore();
 	const { handleOnChange, handleOnSubmit, errors, completed } = useForm(
 		initialValues,
 		validationRules
 	);
 
 	useEffect(() => {
-		setStepCompleted(completed);
+		SET_STEP_COMPLETED({ completed });
 	}, [completed]);
 
 	return (
