@@ -28,10 +28,10 @@ const StoreProvider = ({ children }) => {
 		}
 	];
 
-	const storeValue2 = {};
+	const storeValue = {};
 	contexts.forEach(({ dispatch, actions }) => {
 		Object.entries(actions).forEach(([actionName, actionType]) => {
-			storeValue2[`${actionName}`] = payload => {
+			storeValue[`${actionName}`] = payload => {
 				dispatch({ type: actionType, ...payload });
 			};
 		});
@@ -46,12 +46,11 @@ const StoreProvider = ({ children }) => {
 		SET_PAHTNAME,
 		SET_ADDON,
 		REMOVE_ADDON
-	} = storeValue2;
+	} = storeValue;
 
 	return (
 		<Store.Provider
 			value={{
-				storeValue2,
 				SET_PLAN,
 				CHANGE_PRICE,
 				SET_ANNUALITY,
