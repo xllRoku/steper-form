@@ -2,7 +2,7 @@ import React from 'react';
 import useWhichContext from '../../lib/hooks/useWhichContext';
 
 const Step = ({ step }) => {
-	const { actualStep } = useWhichContext();
+	const { state: actualStep } = useWhichContext();
 	const { stepNumber, title, url } = step;
 
 	return (

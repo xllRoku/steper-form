@@ -84,3 +84,42 @@ export const ANNUALITY = {
 	MONTHLY: 'monthly',
 	YEARLY: 'yearly'
 };
+
+export const FORM_NAMES = {
+	NAME: 'name',
+	EMAIL: 'email',
+	PHONE: 'phone'
+};
+
+export const initialValues = {
+	name: '',
+	email: '',
+	phone: ''
+};
+
+export const validationRules = {
+	name: {
+		required: true,
+		pattern: /^([A-Z\-\s\u00e1\u00e9\u00ed\u00f3\u00fa\u00f1]){2,30}$/i,
+		errorMessage: {
+			generic: 'This field is required',
+			unique: 'El nombre no es válido'
+		}
+	},
+	email: {
+		required: true,
+		pattern: /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+		errorMessage: {
+			generic: 'This field is required',
+			unique: 'El correo electrónico no es válido'
+		}
+	},
+	phone: {
+		required: true,
+		pattern: /^\d{10,}$/,
+		errorMessage: {
+			generic: 'This field is required',
+			unique: 'El numero de celular debe tener  10 caracteres'
+		}
+	}
+};

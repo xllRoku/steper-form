@@ -1,18 +1,22 @@
+import { PLAN_ACTIONS } from '../../context/plan/PlanProvider';
 import { usePlanContext } from '../../lib/hooks/usePlanContext';
 
 const Plan = ({ plan }) => {
-	const { infoPlan, setInfoPlan } = usePlanContext();
+	const { state: infoPlan, dispatch } = usePlanContext();
 	const { title, image, price } = plan;
 
 	const handleOnClick = () => {
-		setInfoPlan(prev => ({ ...prev, title, price }));
-		setSelectedPlan(title);
+		if (infoPlan.title) {
+			dispatch({ type: PLAN_ACTIONS.REMOVE_PLAN });
+		} else {
+			dispatch({ type: PLAN_ACTIONS.SET_PLAN, title, price });
+		}
 	};
 
 	return (
 		<button
 			type='button'
-			className={` w-40 h-44 focus:border-purplish-blue   border-[1px]   p-4 rounded-md flex flex-col justify-between
+			className={` w-40 h-44    border-[1px]   p-4 rounded-md flex flex-col justify-between
 			${infoPlan.title === title ? 'bg-light-blue border-purplish-blue' : ''}
 			`}
 			name={title}

@@ -1,5 +1,6 @@
 import useWhichContext from '../../lib/hooks/useWhichContext';
 import { useNavigate } from 'react-router-dom';
+import { WHICH_ACTIONS } from '../../context/step/WhichStepProvider';
 
 export const ROUTES = {
 	YOUR_INFO: '/payment/personal-info',
@@ -15,7 +16,8 @@ const DIRECTION = {
 
 const StepperController = () => {
 	const navigate = useNavigate();
-	const { actualStep, setActualStep } = useWhichContext();
+	const { state: actualStep, dispatch } = useWhichContext();
+
 	const currentRoute = actualStep.whichIs;
 	const isCompleted = actualStep.completed;
 
@@ -27,7 +29,8 @@ const StepperController = () => {
 		if (direction === DIRECTION.NEXT && completed) {
 			const nextRoute = routes[currentIndex + 1];
 			navigate(`${nextRoute}`);
-			setActualStep(prev => ({ ...prev, completed: false }));
+			const completed = false;
+			dispatch({ type: WHICH_ACTIONS.SET_COMPLETED, completed });
 		} else if (direction === DIRECTION.BACK) {
 			const prevRoute = routes[currentIndex - 1];
 			if (prevRoute === '/') navigate('/');

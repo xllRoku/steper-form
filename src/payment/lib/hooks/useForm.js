@@ -1,6 +1,5 @@
 import { useReducer } from 'react';
 import { formReducer, FORM_ACTIONS } from '../reducers/form.reducer';
-import useWhichContext from './useWhichContext';
 
 export const useForm = (initialValues, validationRules) => {
 	const [formState, dispatch] = useReducer(formReducer, {

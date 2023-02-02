@@ -1,13 +1,15 @@
 import { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
+import { WHICH_ACTIONS } from '../../context/step/WhichStepProvider';
 import useWhichContext from './useWhichContext';
 
 const useSetLocation = () => {
 	const location = useLocation();
-	const { setActualStep } = useWhichContext();
+	const { dispatch } = useWhichContext();
+	const pathname = location.pathname;
 
 	useEffect(() => {
-		setActualStep(prev => ({ ...prev, whichIs: location.pathname }));
+		dispatch({ type: WHICH_ACTIONS.SET_PAHTNAME, pathname });
 	}, []);
 };
 

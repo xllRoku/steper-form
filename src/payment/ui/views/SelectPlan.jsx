@@ -9,21 +9,23 @@ import { getPlansByAnnuality } from '../../utils/getPlansByAnnuality';
 import StepperController from '../components/StepperController';
 import useSetLocation from '../../lib/hooks/useSetLocation';
 import useWhichContext from '../../lib/hooks/useWhichContext';
+import { WHICH_ACTIONS } from '../../context/step/WhichStepProvider';
 
 const SelectPlanFactory = planService => {
 	return function SelectPlanView() {
 		useSetLocation();
-		const { setActualStep } = useWhichContext();
-		const { infoPlan } = usePlanContext();
+		const { dispatch } = useWhichContext();
+		const { state: infoPlan } = usePlanContext();
 		const [plansApi, setPlans] = useState({
 			plans: [],
 			loading: true
 		});
-		const [selectedPlan, setSelectedPlan] = useState(null);
 		const plans = getPlansByAnnuality(
 			plansApi.plans,
 			infoPlan.annuality
 		);
+
+		useEffect(() => {}, []);
 
 		useEffect(() => {
 			(async () => {
@@ -38,10 +40,12 @@ const SelectPlanFactory = planService => {
 
 		const handleOnSubmit = event => {
 			event.preventDefault();
-			console.log('helo world');
 			if (infoPlan.title) {
-				setActualStep(prev => ({ ...prev, completed: true }));
-				console.log('you');
+				const completed = true;
+				dispatch({
+					type: WHICH_ACTIONS.SET_COMPLETED,
+					completed
+				});
 			}
 		};
 

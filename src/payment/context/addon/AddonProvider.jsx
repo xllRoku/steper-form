@@ -1,11 +1,41 @@
-import React, { useState } from 'react';
+import React, { useReducer } from 'react';
 import { AddonContext } from './AddonContext';
 
+const initialState = {
+	addons: []
+};
+
+export const ADDON_ACTIONS = {
+	SET_ADDON: 0,
+	REMOVE_ADDON: 1
+};
+
+const addonReducer = (state, action) => {
+	switch (action.type) {
+		case ADDON_ACTIONS.SET_ADDON:
+			console.log(action.title, action.price);
+			return {
+				addons: [
+					...state.addons,
+					{ title: action.title, price: action.price }
+				]
+			};
+		case ADDON_ACTIONS.REMOVE_ADDON:
+			return {
+				addons: state.addons.filter(
+					addon => addon.title !== action.title
+				)
+			};
+		default:
+			return state;
+	}
+};
+
 const AddonProvider = ({ children }) => {
-	const [addons, setAddons] = useState([]);
+	const [state, dispatch] = useReducer(addonReducer, initialState);
 
 	return (
-		<AddonContext.Provider value={{ addons, setAddons }}>
+		<AddonContext.Provider value={{ state, dispatch }}>
 			{children}
 		</AddonContext.Provider>
 	);

@@ -1,26 +1,21 @@
 import classNames from 'classnames';
 import { useState } from 'react';
 import { ANNUALITY } from '../../constans';
+import { PLAN_ACTIONS } from '../../context/plan/PlanProvider';
 import { usePlanContext } from '../../lib/hooks/usePlanContext';
 import { findPrice } from '../../utils/findPrice';
 
 const Switch = () => {
-	const { infoPlan, setInfoPlan } = usePlanContext();
+	const { state: infoPlan, dispatch } = usePlanContext();
 	const [isSelected, setIsSelected] = useState();
 
-	const handleOnClick = () => {
-		setIsSelected(!isSelected);
-		const newAnnuality = getNewAnnuality();
-		changeInfoPlan(newAnnuality);
-	};
-
-	const changeInfoPlan = newAnnuality => {
+	const changeInfoPlan = annuality => {
 		const planAlreadyPicked = infoPlan.title;
 		if (planAlreadyPicked) {
-			const newPrice = findPrice(infoPlan.title, newAnnuality);
-			setInfoPlan(prev => ({ ...prev, price: newPrice }));
+			const newPrice = findPrice(infoPlan.title, annuality);
+			dispatch({ type: PLAN_ACTIONS.CHANGE_PRICE, newPrice });
 		}
-		setInfoPlan(prev => ({ ...prev, annuality: newAnnuality }));
+		dispatch({ type: PLAN_ACTIONS.SET_ANNUALITY, annuality });
 	};
 
 	const getNewAnnuality = () => {
@@ -29,6 +24,12 @@ const Switch = () => {
 				? ANNUALITY.MONTHLY
 				: ANNUALITY.YEARLY;
 		return newAnnuality;
+	};
+
+	const handleOnClick = () => {
+		setIsSelected(!isSelected);
+		const annuality = getNewAnnuality();
+		changeInfoPlan(annuality);
 	};
 
 	return (

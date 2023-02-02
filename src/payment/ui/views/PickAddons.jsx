@@ -13,9 +13,9 @@ import useWhichContext from '../../lib/hooks/useWhichContext';
 const PickAddonsFactory = addonService => {
 	return function PickAddonsView() {
 		useSetLocation();
-		const { addons: addonsCtx } = useAddonContext();
+		const { state: addonsCtx } = useAddonContext();
 		const { setActualStep } = useWhichContext();
-		const { infoPlan } = usePlanContext();
+		const { state: infoPlan } = usePlanContext();
 		const [addonsApi, setAddos] = useState({
 			addons: [],
 			loading: true

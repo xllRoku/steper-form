@@ -1,32 +1,31 @@
 import { useState } from 'react';
 import { ANNUALITY } from '../../constans';
+import { ADDON_ACTIONS } from '../../context/addon/AddonProvider';
 import { useAddonContext } from '../../lib/hooks/useAddonContext';
 import { usePlanContext } from '../../lib/hooks/usePlanContext';
 import When from '../components/When';
 
 const Addons = ({ addon }) => {
-	const { infoPlan } = usePlanContext();
-	const { addons, setAddons } = useAddonContext();
+	const { state: infoPlan } = usePlanContext();
+	const { state: stateAddons, dispatch } = useAddonContext();
 	const [selectedAddon, setSelectedAddon] = useState(null);
 	const { title, content, price } = addon;
 	const isMonthly = infoPlan.annuality === ANNUALITY.MONTHLY;
 	const isYearly = infoPlan.annuality === ANNUALITY.YEARLY;
 
-	const findAddon = addons => addons.find(addon => addon.title === title);
+	const findAddon = addons => addons?.find(addon => addon.title === title);
 
 	const handleAddonSelection = (title, price, checked) => {
 		if (checked) {
-			setAddons(prev => [...prev, { title, price }]);
+			dispatch({ type: ADDON_ACTIONS.SET_ADDON, title, price });
 		} else {
-			const removeAddon = addons.filter(
-				addon => addon.title !== title
-			);
-			setAddons(removeAddon);
+			dispatch({ type: ADDON_ACTIONS.REMOVE_ADDON, title });
 		}
 	};
+
 	const handleOnChange = event => {
 		const checked = event.target.checked;
-		const exists = findAddon(addons);
+		const exists = findAddon(stateAddons.addons);
 		handleAddonSelection(title, price, checked && !exists);
 		setSelectedAddon(!selectedAddon);
 	};

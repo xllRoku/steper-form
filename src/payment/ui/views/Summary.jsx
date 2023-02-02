@@ -7,8 +7,8 @@ const Summary = () => {
 	const location = useLocation();
 	console.log(location.pathname);
 
-	const { infoPlan } = usePlanContext();
-	const { addons } = useAddonContext();
+	const { state: infoPlan } = usePlanContext();
+	const { state: addons } = useAddonContext();
 
 	return (
 		<>
