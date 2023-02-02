@@ -51,17 +51,6 @@ const StoreProvider = ({ children }) => {
 	return (
 		<Store.Provider
 			value={{
-				plan,
-				setPlan,
-				changePrice,
-				setAnnuality,
-				removePlan,
-				addon,
-				setAddon,
-				removeAddon,
-				path,
-				setStepCompleted,
-				setPathName,
 				storeValue2,
 				SET_PLAN,
 				CHANGE_PRICE,
