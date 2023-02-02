@@ -1,6 +1,4 @@
 import { useEffect, useState } from 'react';
-import { usePlanContext } from '../../lib/hooks/usePlanContext';
-import useWhichContext from '../../lib/hooks/useWhichContext';
 import { If } from '../components/If';
 import { Then } from '../components/Then';
 import { Else } from '../components/Else';
@@ -8,19 +6,18 @@ import StepperController from '../components/StepperController';
 import Plan from '../molecules/Plan';
 import useSetLocation from '../../lib/hooks/useSetLocation';
 import { getPlansByAnnuality } from '../../lib/utils/getPlansByAnnuality';
-import { WHICH_ACTIONS } from '../../context/step/WhichStepProvider';
 import Switch from '../components/Switch';
+import { useStore } from '../../context/store';
 
 const SelectPlanFactory = planService => {
 	return function SelectPlanView() {
 		useSetLocation();
-		const { dispatch } = useWhichContext();
-		const { state: infoPlan } = usePlanContext();
+		const { setStepCompleted, plan: planInfo } = useStore();
 		const [plansApi, setPlans] = useState({
 			plans: [],
 			loading: true
 		});
-		const plans = getPlansByAnnuality(plansApi.plans, infoPlan.annuality);
+		const plans = getPlansByAnnuality(plansApi.plans, planInfo.annuality);
 
 		useEffect(() => {
 			(async () => {
@@ -35,12 +32,9 @@ const SelectPlanFactory = planService => {
 
 		const handleOnSubmit = event => {
 			event.preventDefault();
-			if (infoPlan.title) {
+			if (planInfo.title) {
 				const completed = true;
-				dispatch({
-					type: WHICH_ACTIONS.SET_COMPLETED,
-					completed
-				});
+				setStepCompleted(completed);
 			}
 		};
 

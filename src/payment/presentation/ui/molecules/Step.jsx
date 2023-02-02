@@ -1,15 +1,14 @@
-import React from 'react';
-import useWhichContext from '../../lib/hooks/useWhichContext';
+import { useStore } from '../../context/store';
 
 const Step = ({ step }) => {
-	const { state: actualStep } = useWhichContext();
+	const { path } = useStore();
 	const { stepNumber, title, url } = step;
 
 	return (
 		<div className='flex gap-4 mx-auto w-[200px] items-center'>
 			<span
 				className={`w-9 h-9 border-[1px] border-white  rounded-full flex items-center justify-center font-bold text-white
-			${actualStep.whichIs === url ? 'bg-light-blue text-black' : 'text-white'}
+			${path.whichIs === url ? 'bg-light-blue text-black' : 'text-white'}
 			`}
 			>
 				{stepNumber}

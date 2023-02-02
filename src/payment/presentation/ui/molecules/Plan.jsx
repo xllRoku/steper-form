@@ -1,15 +1,14 @@
-import { PLAN_ACTIONS } from '../../context/plan/PlanProvider';
-import { usePlanContext } from '../../lib/hooks/usePlanContext';
+import { useStore } from '../../context/store';
 
 const Plan = ({ plan }) => {
-	const { state: infoPlan, dispatch } = usePlanContext();
+	const { plan: planInfo, removePlan, setPlan } = useStore();
 	const { title, image, price } = plan;
 
 	const handleOnClick = () => {
-		if (infoPlan.title) {
-			dispatch({ type: PLAN_ACTIONS.REMOVE_PLAN });
+		if (planInfo.title) {
+			removePlan();
 		} else {
-			dispatch({ type: PLAN_ACTIONS.SET_PLAN, title, price });
+			setPlan(title, price);
 		}
 	};
 
@@ -17,16 +16,14 @@ const Plan = ({ plan }) => {
 		<button
 			type='button'
 			className={` w-40 h-44    border-[1px]   p-4 rounded-md flex flex-col justify-between
-			${infoPlan.title === title ? 'bg-light-blue border-purplish-blue' : ''}
+			${planInfo.title === title ? 'bg-light-blue border-purplish-blue' : ''}
 			`}
 			name={title}
 			onClick={handleOnClick}
 		>
 			<img src={image} alt='' />
 			<div className='flex flex-col items-start'>
-				<p className='font-bold text-marine-blue capitalize'>
-					{title}
-				</p>
+				<p className='font-bold text-marine-blue capitalize'>{title}</p>
 				<span> ${price}/mo </span>
 			</div>
 		</button>

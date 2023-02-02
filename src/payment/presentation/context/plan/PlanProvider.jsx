@@ -1,5 +1,6 @@
-import React, { useReducer } from 'react';
-import { PlanContext } from './PlanContext';
+import { useReducer, createContext, useContext } from 'react';
+
+export const PlanContext = createContext();
 
 const initialValue = {
 	title: '',
@@ -54,4 +55,7 @@ const PlanProvider = ({ children }) => {
 	);
 };
 
-export default PlanProvider;
+const usePlanContext = () => {
+	return useContext(PlanContext);
+};
+export { PlanProvider, usePlanContext };

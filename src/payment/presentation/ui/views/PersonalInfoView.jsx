@@ -3,20 +3,19 @@ import InputText from '../atoms/InputText';
 import StepperController from '../components/StepperController';
 import useSetLocation from '../../lib/hooks/useSetLocation';
 import { useEffect } from 'react';
-import useWhichContext from '../../lib/hooks/useWhichContext';
-import { WHICH_ACTIONS } from '../../context/step/WhichStepProvider';
 import { FORM_NAMES, initialValues, validationRules } from '../../../constans';
+import { useStore } from '../../context/store';
 
 const PersonalInfoView = () => {
 	useSetLocation();
-	const { dispatch } = useWhichContext();
+	const { setStepCompleted } = useStore();
 	const { handleOnChange, handleOnSubmit, errors, completed } = useForm(
 		initialValues,
 		validationRules
 	);
 
 	useEffect(() => {
-		dispatch({ type: WHICH_ACTIONS.SET_COMPLETED, completed });
+		setStepCompleted(completed);
 	}, [completed]);
 
 	return (

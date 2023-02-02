@@ -1,33 +1,30 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import useSetLocation from '../../lib/hooks/useSetLocation';
-import { useAddonContext } from '../../lib/hooks/useAddonContext';
-import { usePlanContext } from '../../lib/hooks/usePlanContext';
+import { useStore } from '../../context/store';
 import StepperController from '../components/StepperController';
 import When from '../components/When';
 import { ANNUALITY, ROUTES } from '../../../constans';
 
 const SummaryView = () => {
 	useSetLocation();
-	const { state: infoPlan } = usePlanContext();
-	const { state: addons } = useAddonContext();
-
-	const isMonthly = infoPlan.annuality === ANNUALITY.MONTHLY;
-	const isYearly = infoPlan.annuality === ANNUALITY.YEARLY;
+	const { plan: planInfo, addon: addonsInfo } = useStore();
+	const isMonthly = planInfo.annuality === ANNUALITY.MONTHLY;
+	const isYearly = planInfo.annuality === ANNUALITY.YEARLY;
 	const [total, setTotal] = useState(0);
 
 	const add = () => {
-		let newTotal = addons.addons.reduce(
+		let newTotal = addonsInfo.addons.reduce(
 			(acc, addon) => acc + addon.price,
 			0
 		);
-		newTotal += infoPlan.price;
+		newTotal += planInfo.price;
 		setTotal(newTotal);
 	};
 
 	useEffect(() => {
 		add();
-	}, [addons, infoPlan]);
+	}, [addonsInfo, planInfo]);
 
 	return (
 		<>
@@ -46,10 +43,10 @@ const SummaryView = () => {
 							<div>
 								<div className='text-marine-blue font-bold'>
 									<span className='capitalize'>
-										{infoPlan.title}
+										{planInfo.title}
 									</span>
 									<span className='capitalize ml-1'>
-										{infoPlan.annuality}
+										{planInfo.annuality}
 									</span>
 								</div>
 								<Link
@@ -61,12 +58,12 @@ const SummaryView = () => {
 							</div>
 							<span className='text-purplish-blue font-bold'>
 								+$
-								{infoPlan.price ? infoPlan.price : 9}
+								{planInfo.price}
 								/mo
 							</span>
 						</div>
 						<div className=' flex flex-col pt-4 space-y-3'>
-							{addons.addons.map(addon => (
+							{addonsInfo?.addons.map(addon => (
 								<>
 									<div className='flex justify-between'>
 										<h3> {addon.title}</h3>

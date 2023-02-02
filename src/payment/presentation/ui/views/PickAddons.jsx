@@ -1,22 +1,21 @@
 import { useEffect, useState } from 'react';
-import { usePlanContext } from '../../lib/hooks/usePlanContext';
-import { useAddonContext } from '../../lib/hooks/useAddonContext';
 import useSetLocation from '../../lib/hooks/useSetLocation';
-import useWhichContext from '../../lib/hooks/useWhichContext';
 import { Else } from '../components/Else';
 import { If } from '../components/If';
 import { Then } from '../components/Then';
 import StepperController from '../components/StepperController';
 import Addons from '../molecules/Addons';
-import { WHICH_ACTIONS } from '../../context/step/WhichStepProvider';
 import { getAddonsByAnnuality } from '../../lib/utils/getAddonsByAnnuality';
+import { useStore } from '../../context/store';
 
 const PickAddonsFactory = addonService => {
 	return function PickAddonsView() {
 		useSetLocation();
-		const { state: addonsCtx } = useAddonContext();
-		const { dispatch } = useWhichContext();
-		const { state: infoPlan } = usePlanContext();
+		const {
+			addon: addonsInfo,
+			setStepCompleted,
+			plan: planInfo
+		} = useStore();
 		const [addonsApi, setAddos] = useState({
 			addons: [],
 			loading: true
@@ -24,7 +23,7 @@ const PickAddonsFactory = addonService => {
 
 		const addons = getAddonsByAnnuality(
 			addonsApi.addons,
-			infoPlan.annuality
+			planInfo.annuality
 		);
 
 		useEffect(() => {
@@ -41,8 +40,7 @@ const PickAddonsFactory = addonService => {
 		const handleOnSumbit = event => {
 			event.preventDefault();
 			const completed = true;
-			if (addonsCtx.addons.length !== 0)
-				dispatch({ type: WHICH_ACTIONS.SET_COMPLETED, completed });
+			if (addonsInfo.addons.length !== 0) setStepCompleted(completed);
 		};
 
 		return (

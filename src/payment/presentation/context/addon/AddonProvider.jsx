@@ -1,5 +1,7 @@
-import React, { useReducer } from 'react';
-import { AddonContext } from './AddonContext';
+import { createContext, useContext } from 'react';
+import { useReducer } from 'react';
+
+const AddonContext = createContext();
 
 const initialState = {
 	addons: []
@@ -41,4 +43,8 @@ const AddonProvider = ({ children }) => {
 	);
 };
 
-export default AddonProvider;
+const useAddonContext = () => {
+	return useContext(AddonContext);
+};
+
+export { AddonProvider, useAddonContext };
