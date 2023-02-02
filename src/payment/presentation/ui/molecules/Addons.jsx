@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { ANNUALITY } from '../../constans';
+import { ANNUALITY } from '../../../constans';
 import { ADDON_ACTIONS } from '../../context/addon/AddonProvider';
 import { useAddonContext } from '../../lib/hooks/useAddonContext';
 import { usePlanContext } from '../../lib/hooks/usePlanContext';
@@ -45,9 +45,7 @@ const Addons = ({ addon }) => {
 						onChange={handleOnChange}
 					/>
 					<div className='flex flex-col '>
-						<h3 className='text-marine-blue font-bold'>
-							{title}
-						</h3>
+						<h3 className='text-marine-blue font-bold'>{title}</h3>
 						<span>{content}</span>
 					</div>
 				</div>

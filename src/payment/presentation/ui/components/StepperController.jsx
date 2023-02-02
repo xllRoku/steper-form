@@ -1,13 +1,7 @@
-import useWhichContext from '../../lib/hooks/useWhichContext';
 import { useNavigate } from 'react-router-dom';
+import { ROUTES } from '../../../constans';
 import { WHICH_ACTIONS } from '../../context/step/WhichStepProvider';
-
-export const ROUTES = {
-	YOUR_INFO: '/payment/personal-info',
-	SELECT_PLAN: '/payment/select-plan',
-	ADD_ONS: '/payment/add-ons',
-	SUMMARY: '/payment/summary'
-};
+import useWhichContext from '../../lib/hooks/useWhichContext';
 
 const DIRECTION = {
 	NEXT: 'next',
@@ -51,11 +45,7 @@ const StepperController = () => {
 				${currentRoute === ROUTES.YOUR_INFO ? 'hidden' : ''}
 				`}
 				onClick={() =>
-					handleClick(
-						currentRoute,
-						DIRECTION.BACK,
-						isCompleted
-					)
+					handleClick(currentRoute, DIRECTION.BACK, isCompleted)
 				}
 			>
 				go back
@@ -64,11 +54,7 @@ const StepperController = () => {
 				type='submit'
 				className='w-28 h-10 capitalize bg-marine-blue text-white font-bold rounded-md  absolute bottom-0 right-0 '
 				onClick={() =>
-					handleClick(
-						currentRoute,
-						DIRECTION.NEXT,
-						isCompleted
-					)
+					handleClick(currentRoute, DIRECTION.NEXT, isCompleted)
 				}
 			>
 				Next Step

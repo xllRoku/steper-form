@@ -1,4 +1,4 @@
-import { PLANS } from '../constans';
+import { PLANS } from '../../../constans';
 
 export const findPrice = (title, annuality) => {
 	const plan = PLANS.find(plan => plan.title === title);

@@ -1,9 +1,9 @@
 import classNames from 'classnames';
 import { useState } from 'react';
-import { ANNUALITY } from '../../constans';
+import { ANNUALITY } from '../../../constans';
 import { PLAN_ACTIONS } from '../../context/plan/PlanProvider';
 import { usePlanContext } from '../../lib/hooks/usePlanContext';
-import { findPrice } from '../../utils/findPrice';
+import { findPrice } from '../../lib/utils/findPrice';
 
 const Switch = () => {
 	const { state: infoPlan, dispatch } = usePlanContext();

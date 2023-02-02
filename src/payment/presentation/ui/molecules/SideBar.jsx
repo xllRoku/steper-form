@@ -1,6 +1,6 @@
-import { STEPS } from '../../constans';
 import Step from './Step';
-import sideBar from '../../../assets/images/bg-sidebar-desktop.svg';
+import sideBar from '../../../../assets/images/bg-sidebar-desktop.svg';
+import { STEPS } from '../../../constans';
 
 const SideBar = () => {
 	return (

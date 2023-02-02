@@ -4,10 +4,10 @@ import StepperController from '../components/StepperController';
 import useSetLocation from '../../lib/hooks/useSetLocation';
 import { useEffect } from 'react';
 import useWhichContext from '../../lib/hooks/useWhichContext';
-import { FORM_NAMES, initialValues, validationRules } from '../../constans';
 import { WHICH_ACTIONS } from '../../context/step/WhichStepProvider';
+import { FORM_NAMES, initialValues, validationRules } from '../../../constans';
 
-const PersonalInfo = () => {
+const PersonalInfoView = () => {
 	useSetLocation();
 	const { dispatch } = useWhichContext();
 	const { handleOnChange, handleOnSubmit, errors, completed } = useForm(
@@ -26,8 +26,7 @@ const PersonalInfo = () => {
 					Personal info
 				</h2>
 				<p className='text-cool-gray'>
-					Please provide your name, email address, and phone
-					number.
+					Please provide your name, email address, and phone number.
 				</p>
 			</header>
 			<form className=' mt-10' onSubmit={handleOnSubmit}>
@@ -63,4 +62,4 @@ const PersonalInfo = () => {
 	);
 };
 
-export default PersonalInfo;
+export default PersonalInfoView;

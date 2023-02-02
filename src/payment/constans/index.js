@@ -1,7 +1,13 @@
 import arcade from '../../assets/images/icon-arcade.svg';
 import advanced from '../../assets/images/icon-advanced.svg';
 import iconPro from '../../assets/images/icon-pro.svg';
-import { ROUTES } from '../ui/components/StepperController';
+
+export const ROUTES = {
+	YOUR_INFO: '/payment/personal-info',
+	SELECT_PLAN: '/payment/select-plan',
+	ADD_ONS: '/payment/add-ons',
+	SUMMARY: '/payment/summary'
+};
 
 export const STEPS = [
 	{
@@ -108,7 +114,8 @@ export const validationRules = {
 	},
 	email: {
 		required: true,
-		pattern: /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+		pattern:
+			/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
 		errorMessage: {
 			generic: 'This field is required',
 			unique: 'El correo electrónico no es válido'

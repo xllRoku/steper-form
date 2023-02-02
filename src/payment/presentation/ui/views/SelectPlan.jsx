@@ -1,15 +1,15 @@
-import Plan from '../molecules/Plan';
-import Switch from '../molecules/Switch';
 import { useEffect, useState } from 'react';
 import { usePlanContext } from '../../lib/hooks/usePlanContext';
+import useWhichContext from '../../lib/hooks/useWhichContext';
 import { If } from '../components/If';
 import { Then } from '../components/Then';
 import { Else } from '../components/Else';
-import { getPlansByAnnuality } from '../../utils/getPlansByAnnuality';
 import StepperController from '../components/StepperController';
+import Plan from '../molecules/Plan';
 import useSetLocation from '../../lib/hooks/useSetLocation';
-import useWhichContext from '../../lib/hooks/useWhichContext';
+import { getPlansByAnnuality } from '../../lib/utils/getPlansByAnnuality';
 import { WHICH_ACTIONS } from '../../context/step/WhichStepProvider';
+import Switch from '../components/Switch';
 
 const SelectPlanFactory = planService => {
 	return function SelectPlanView() {
@@ -20,12 +20,7 @@ const SelectPlanFactory = planService => {
 			plans: [],
 			loading: true
 		});
-		const plans = getPlansByAnnuality(
-			plansApi.plans,
-			infoPlan.annuality
-		);
-
-		useEffect(() => {}, []);
+		const plans = getPlansByAnnuality(plansApi.plans, infoPlan.annuality);
 
 		useEffect(() => {
 			(async () => {
@@ -68,10 +63,7 @@ const SelectPlanFactory = planService => {
 							</Then>
 							<Else>
 								{plans.map(plan => (
-									<Plan
-										key={plan.title}
-										plan={plan}
-									/>
+									<Plan key={plan.title} plan={plan} />
 								))}
 							</Else>
 						</If>

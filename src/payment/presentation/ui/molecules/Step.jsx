@@ -18,10 +18,7 @@ const Step = ({ step }) => {
 				<span className='uppercase  text-light-gray text-sm'>
 					step {stepNumber}
 				</span>
-				<p className='uppercase text-white font-bold'>
-					{' '}
-					{title}{' '}
-				</p>
+				<p className='uppercase text-white font-bold'>{title}</p>
 			</div>
 		</div>
 	);

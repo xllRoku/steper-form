@@ -1,25 +1,27 @@
 import { useEffect, useState } from 'react';
 import { usePlanContext } from '../../lib/hooks/usePlanContext';
-import { getAddonsByAnnuality } from '../../utils/getAddonsByAnnuality';
+import { useAddonContext } from '../../lib/hooks/useAddonContext';
+import useSetLocation from '../../lib/hooks/useSetLocation';
+import useWhichContext from '../../lib/hooks/useWhichContext';
 import { Else } from '../components/Else';
 import { If } from '../components/If';
 import { Then } from '../components/Then';
-import Addons from '../molecules/Addons';
 import StepperController from '../components/StepperController';
-import useSetLocation from '../../lib/hooks/useSetLocation';
-import { useAddonContext } from '../../lib/hooks/useAddonContext';
-import useWhichContext from '../../lib/hooks/useWhichContext';
+import Addons from '../molecules/Addons';
+import { WHICH_ACTIONS } from '../../context/step/WhichStepProvider';
+import { getAddonsByAnnuality } from '../../lib/utils/getAddonsByAnnuality';
 
 const PickAddonsFactory = addonService => {
 	return function PickAddonsView() {
 		useSetLocation();
 		const { state: addonsCtx } = useAddonContext();
-		const { setActualStep } = useWhichContext();
+		const { dispatch } = useWhichContext();
 		const { state: infoPlan } = usePlanContext();
 		const [addonsApi, setAddos] = useState({
 			addons: [],
 			loading: true
 		});
+
 		const addons = getAddonsByAnnuality(
 			addonsApi.addons,
 			infoPlan.annuality
@@ -38,9 +40,9 @@ const PickAddonsFactory = addonService => {
 
 		const handleOnSumbit = event => {
 			event.preventDefault();
-			if (addonsCtx.length !== 0) {
-				setActualStep(prev => ({ ...prev, completed: true }));
-			}
+			const completed = true;
+			if (addonsCtx.addons.length !== 0)
+				dispatch({ type: WHICH_ACTIONS.SET_COMPLETED, completed });
 		};
 
 		return (
@@ -62,10 +64,7 @@ const PickAddonsFactory = addonService => {
 							</Then>
 							<Else>
 								{addons.map(addon => (
-									<Addons
-										key={addon.title}
-										addon={addon}
-									/>
+									<Addons key={addon.title} addon={addon} />
 								))}
 							</Else>
 						</If>
@@ -83,10 +82,7 @@ const Skeleton = () => {
 		<div className='w-[480px] h-[80px] flex justify-between items-center border-[1px] border-black p-4 rounded-md '>
 			<div className='w-full flex  items-center gap-6 justify-between'>
 				<div className='flex items-center gap-4'>
-					<div
-						className='w-4 h-4  loader '
-						name='skeleton'
-					/>
+					<div className='w-4 h-4  loader ' name='skeleton' />
 					<div className='flex flex-col '>
 						<h3 className='w-[190px] h-[18px]   rounded-full loader mb-2'></h3>
 						<span className='w-[215px] h-[18px]   rounded-full loader'></span>
