@@ -1,4 +1,4 @@
-import { useStore } from '../../context/store';
+import { useStore } from '../../context/Store';
 
 const Step = ({ step }) => {
 	const { path } = useStore();

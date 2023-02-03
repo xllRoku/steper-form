@@ -1,4 +1,4 @@
-import { useStore } from '../../context/store';
+import { useStore } from '../../context/Store';
 
 const Plan = ({ plan }) => {
 	const { plan: planInfo, REMOVE_PLAN, SET_PLAN } = useStore();

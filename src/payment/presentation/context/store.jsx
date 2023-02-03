@@ -1,7 +1,7 @@
 import React, { createContext, useContext } from 'react';
-import { ADDON_ACTIONS, useAddonContext } from './addon/AddonProvider';
-import { PATH_ACTIONS, usePathContext } from './path/PathProvider';
-import { PLAN_ACTIONS, usePlanContext } from './plan/PlanProvider';
+import { ADDON_ACTIONS, useAddonContext } from './AddonProvider';
+import { PATH_ACTIONS, usePathContext } from './PathProvider';
+import { PLAN_ACTIONS, usePlanContext } from './PlanProvider';
 
 export const Store = createContext();
 
@@ -58,7 +58,10 @@ const StoreProvider = ({ children }) => {
 				SET_STEP_COMPLETED,
 				SET_PAHTNAME,
 				SET_ADDON,
-				REMOVE_ADDON
+				REMOVE_ADDON,
+				plan,
+				addon,
+				path
 			}}
 		>
 			{children}

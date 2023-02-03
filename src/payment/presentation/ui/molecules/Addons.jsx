@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { ANNUALITY } from '../../../constans';
-import { useStore } from '../../context/store';
+import { useStore } from '../../context/Store';
 import When from '../components/When';
 
 const Addons = ({ addon }) => {

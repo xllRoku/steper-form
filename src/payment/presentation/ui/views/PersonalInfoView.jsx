@@ -4,11 +4,11 @@ import StepperController from '../components/StepperController';
 import useSetLocation from '../../lib/hooks/useSetLocation';
 import { useEffect } from 'react';
 import { FORM_NAMES, initialValues, validationRules } from '../../../constans';
-import { useStore } from '../../context/store';
+import { useStore } from '../../context/Store';
 
 const PersonalInfoView = () => {
 	useSetLocation();
-	const { storeValue2, SET_STEP_COMPLETED } = useStore();
+	const { SET_STEP_COMPLETED } = useStore();
 	const { handleOnChange, handleOnSubmit, errors, completed } = useForm(
 		initialValues,
 		validationRules

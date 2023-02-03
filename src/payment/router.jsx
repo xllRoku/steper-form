@@ -1,10 +1,10 @@
 import { Route, Routes } from 'react-router-dom';
-import { AddonProvider } from './presentation/context/addon/AddonProvider';
-import { PlanProvider } from './presentation/context/plan/PlanProvider';
-import { PathProvider } from './presentation/context/path/PathProvider';
 import { AddonMemoryService } from './domain/services/AddonMemory.service';
 import { PlanMemoryService } from './domain/services/PlanMemory.service';
-import { StoreProvider } from './presentation/context/store';
+import { AddonProvider } from './presentation/context/AddonProvider';
+import { PathProvider } from './presentation/context/PathProvider';
+import { PlanProvider } from './presentation/context/PlanProvider';
+import { StoreProvider } from './presentation/context/Store';
 import Layout from './presentation/ui/layouts/Layout';
 import PersonalInfoView from './presentation/ui/views/PersonalInfoView';
 import PickAddonsFactory from './presentation/ui/views/PickAddons';

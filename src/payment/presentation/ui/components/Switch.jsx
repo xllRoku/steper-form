@@ -1,7 +1,7 @@
 import classNames from 'classnames';
 import { useState } from 'react';
 import { ANNUALITY } from '../../../constans';
-import { useStore } from '../../context/store';
+import { useStore } from '../../context/Store';
 import { findPrice } from '../../lib/utils/findPrice';
 
 const Switch = () => {

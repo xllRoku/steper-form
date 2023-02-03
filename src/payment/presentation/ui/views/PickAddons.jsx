@@ -6,7 +6,7 @@ import { Then } from '../components/Then';
 import StepperController from '../components/StepperController';
 import Addons from '../molecules/Addons';
 import { getAddonsByAnnuality } from '../../lib/utils/getAddonsByAnnuality';
-import { useStore } from '../../context/store';
+import { useStore } from '../../context/Store';
 
 const PickAddonsFactory = addonService => {
 	return function PickAddonsView() {

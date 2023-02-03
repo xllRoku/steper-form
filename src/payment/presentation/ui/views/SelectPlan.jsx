@@ -7,7 +7,7 @@ import Plan from '../molecules/Plan';
 import useSetLocation from '../../lib/hooks/useSetLocation';
 import { getPlansByAnnuality } from '../../lib/utils/getPlansByAnnuality';
 import Switch from '../components/Switch';
-import { useStore } from '../../context/store';
+import { useStore } from '../../context/Store';
 
 const SelectPlanFactory = planService => {
 	return function SelectPlanView() {

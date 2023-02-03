@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import { ROUTES } from '../../../constans';
-import { useStore } from '../../context/store';
+import { useStore } from '../../context/Store';
 
 const DIRECTION = {
 	NEXT: 'next',

@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import useSetLocation from '../../lib/hooks/useSetLocation';
-import { useStore } from '../../context/store';
+import { useStore } from '../../context/Store';
 import StepperController from '../components/StepperController';
 import When from '../components/When';
 import { ANNUALITY, ROUTES } from '../../../constans';
