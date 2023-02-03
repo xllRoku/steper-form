@@ -16,7 +16,7 @@ const PersonalInfoView = () => {
 	);
 
 	useEffect(() => {
-		SET_STEP_COMPLETED({ completed });
+		SET_STEP_COMPLETED({ payload: { completed } });
 	}, [completed]);
 
 	return (

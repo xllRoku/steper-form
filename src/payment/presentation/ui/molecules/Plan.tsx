@@ -1,6 +1,17 @@
+import React from 'react';
 import { useStore } from '../../context/Store';
 
-const Plan = ({ plan }) => {
+interface IPlan {
+	title: string;
+	image: string;
+	price: number;
+}
+
+interface IPlanProps {
+	plan: IPlan;
+}
+
+const Plan: React.FC<IPlanProps> = ({ plan }) => {
 	const { plan: planInfo, REMOVE_PLAN, SET_PLAN } = useStore();
 	const { title, image, price } = plan;
 
@@ -8,7 +19,7 @@ const Plan = ({ plan }) => {
 		if (planInfo.title) {
 			REMOVE_PLAN();
 		} else {
-			SET_PLAN({ title, price });
+			SET_PLAN({ payload: { title, price } });
 		}
 	};
 

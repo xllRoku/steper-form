@@ -1,9 +1,37 @@
 import React, { createContext, useContext } from 'react';
-import { ADDON_ACTIONS, useAddonContext } from './AddonProvider';
-import { PATH_ACTIONS, usePathContext } from './PathProvider';
-import { PLAN_ACTIONS, usePlanContext } from './PlanProvider';
+import {
+	AddonTypes,
+	useAddonContext,
+	InitialStateType as stateAddon
+} from './AddonProvider';
+import {
+	PathTypes,
+	usePathContext,
+	InitialStateType as pathState
+} from './PathProvider';
+import {
+	PlanTypes,
+	usePlanContext,
+	InitialStateType as planState
+} from './PlanProvider';
 
-export const Store = createContext();
+type StoreType = {
+	SET_PLAN: (payload: any) => void;
+	CHANGE_PRICE: (payload: any) => void;
+	SET_ANNUALITY: (payload: any) => void;
+	REMOVE_PLAN: (payload: any) => void;
+	SET_STEP_COMPLETED: (payload: any) => void;
+	SET_PAHTNAME: (payload: any) => void;
+	SET_ADDON: (payload: any) => void;
+	REMOVE_ADDON: (payload: any) => void;
+	plan: planState;
+	addon: stateAddon;
+	path: pathState;
+};
+
+const storeValue: any = {};
+
+export const Store = createContext<{ state: StoreType }>({ state: storeValue });
 
 const StoreProvider = ({ children }) => {
 	const { state: plan, dispatch: dispatchPlan } = usePlanContext();
@@ -14,21 +42,21 @@ const StoreProvider = ({ children }) => {
 		{
 			state: plan,
 			dispatch: dispatchPlan,
-			actions: PLAN_ACTIONS
+			actions: PlanTypes
 		},
 		{
 			state: addon,
 			dispatch: dispatchAddon,
-			actions: ADDON_ACTIONS
+			actions: AddonTypes
 		},
 		{
 			state: path,
 			dispatch: dispatchPath,
-			actions: PATH_ACTIONS
+			actions: PathTypes
 		}
 	];
 
-	const storeValue = {};
+	const storeValue: StoreType = {};
 	contexts.forEach(({ dispatch, actions }) => {
 		Object.entries(actions).forEach(([actionName, actionType]) => {
 			storeValue[`${actionName}`] = payload => {
@@ -42,10 +70,10 @@ const StoreProvider = ({ children }) => {
 		CHANGE_PRICE,
 		SET_ANNUALITY,
 		REMOVE_PLAN,
-		SET_STEP_COMPLETED,
-		SET_PAHTNAME,
 		SET_ADDON,
-		REMOVE_ADDON
+		REMOVE_ADDON,
+		SET_STEP_COMPLETED,
+		SET_PAHTNAME
 	} = storeValue;
 
 	return (

@@ -6,9 +6,8 @@ export interface IPlanApi {
 		annuality: string;
 		price: number;
 	}[];
-	image: any;
+	image: string;
 }
-[];
 
 export interface IPlanService {
 	getPlan(): Promise<Array<IPlanApi>>;

@@ -2,7 +2,7 @@ import React from 'react';
 
 interface IWhenProps {
 	children: React.ReactNode;
-	predicate: boolean | string;
+	predicate: boolean | string | undefined;
 }
 
 const When: React.FC<IWhenProps> = ({ children, predicate }) => {

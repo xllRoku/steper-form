@@ -1,3 +1,4 @@
+import React from 'react';
 import Step from './Step';
 import sideBar from '../../../../assets/images/bg-sidebar-desktop.svg';
 import { STEPS } from '../../../constans';

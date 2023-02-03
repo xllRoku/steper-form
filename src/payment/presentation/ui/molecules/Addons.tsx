@@ -36,9 +36,9 @@ const Addons: React.FC<IAddonsProps> = ({ addon }) => {
 		checked: boolean
 	) => {
 		if (checked) {
-			SET_ADDON({ title, price });
+			SET_ADDON({ payload: { title, price } });
 		} else {
-			REMOVE_ADDON({ title });
+			REMOVE_ADDON({ payload: { title } });
 		}
 	};
 

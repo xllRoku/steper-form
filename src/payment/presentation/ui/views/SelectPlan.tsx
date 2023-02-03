@@ -1,33 +1,29 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { If } from '../components/If';
 import { Then } from '../components/Then';
 import { Else } from '../components/Else';
 import StepperController from '../components/StepperController';
 import Plan from '../molecules/Plan';
 import useSetLocation from '../../lib/hooks/useSetLocation';
-import { getPlansByAnnuality } from '../../lib/utils/getPlansByAnnuality';
 import Switch from '../components/Switch';
 import { useStore } from '../../context/Store';
-import {
-	IPlanApi,
-	IPlanService
-} from '../../../domain/services/PlanMemory.service';
+import { IPlanService } from '../../../domain/services/PlanMemory.service';
 import { useFetch } from '../../lib/hooks/useFetch';
+import { planApiMapper } from '../../lib/mappers/planApi.mapper';
 
 const SelectPlanFactory = (planService: IPlanService) => {
 	return function SelectPlanView() {
 		useSetLocation();
 		const { SET_STEP_COMPLETED, plan: planInfo } = useStore();
 		const fetchData = () => planService.getPlan();
-		const { data: plansApi, loading } = useFetch<IPlanApi>(fetchData);
-
-		const plans = getPlansByAnnuality(plansApi, planInfo.annuality);
+		const { data: plansApi, loading } = useFetch(fetchData);
+		const plans = planApiMapper(plansApi, planInfo.annuality);
 
 		const handleOnSubmit = (event: React.FormEvent<HTMLFormElement>) => {
 			event.preventDefault();
 			if (planInfo.title) {
 				const completed = true;
-				SET_STEP_COMPLETED({ completed });
+				SET_STEP_COMPLETED({ payload: { completed } });
 			}
 		};
 

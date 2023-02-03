@@ -8,7 +8,7 @@ const useSetLocation = () => {
 	const pathname = location.pathname;
 
 	useEffect(() => {
-		SET_PAHTNAME({ pathname });
+		SET_PAHTNAME({ payload: { pathname } });
 	}, []);
 };
 

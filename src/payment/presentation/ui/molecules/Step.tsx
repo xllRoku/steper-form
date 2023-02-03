@@ -1,6 +1,17 @@
+import React from 'react';
 import { useStore } from '../../context/Store';
 
-const Step = ({ step }) => {
+interface IStep {
+	stepNumber: number;
+	title: string;
+	url: string;
+}
+
+interface IStepProps {
+	step: IStep;
+}
+
+const Step: React.FC<IStepProps> = ({ step }) => {
 	const { path } = useStore();
 	const { stepNumber, title, url } = step;
 

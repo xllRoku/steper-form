@@ -5,7 +5,7 @@ interface InputTextProps {
 	label: string;
 	name: string;
 	handleOnChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
-	error: { [key: string]: string };
+	error: { [key: string]: string | undefined };
 }
 
 const InputText: React.FC<InputTextProps> = ({

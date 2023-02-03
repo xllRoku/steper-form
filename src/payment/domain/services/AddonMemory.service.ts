@@ -8,7 +8,6 @@ export interface IAddonApi {
 		annuality: string;
 	}[];
 }
-[];
 
 export interface IAddonService {
 	getAddon(): Promise<IAddonApi[]>;

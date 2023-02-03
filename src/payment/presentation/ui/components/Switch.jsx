@@ -12,9 +12,9 @@ const Switch = () => {
 		const planAlreadyPicked = planInfo.title;
 		if (planAlreadyPicked) {
 			const newPrice = findPrice(planInfo.title, annuality);
-			CHANGE_PRICE({ newPrice });
+			CHANGE_PRICE({ payload: { newPrice } });
 		}
-		SET_ANNUALITY({ annuality });
+		SET_ANNUALITY({ payload: { annuality } });
 	};
 
 	const getNewAnnuality = () => {

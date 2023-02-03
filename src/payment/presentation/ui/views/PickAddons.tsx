@@ -1,17 +1,14 @@
 import React from 'react';
-import { useEffect, useState } from 'react';
 import useSetLocation from '../../lib/hooks/useSetLocation';
 import { Else } from '../components/Else';
 import { If } from '../components/If';
 import { Then } from '../components/Then';
 import StepperController from '../components/StepperController';
 import Addons from '../molecules/Addons';
-import { getAddonsByAnnuality } from '../../lib/utils/getAddonsByAnnuality';
 import { useStore } from '../../context/Store';
-import {
-	IAddonApi,
-	IAddonService
-} from '../../../domain/services/AddonMemory.service';
+import { IAddonService } from '../../../domain/services/AddonMemory.service';
+import { useFetch } from '../../lib/hooks/useFetch';
+import { addonApiMapper } from '../../lib/mappers/addonApi.mapper';
 
 const PickAddonsFactory = (addonService: IAddonService) => {
 	return function PickAddonsView() {
@@ -21,36 +18,15 @@ const PickAddonsFactory = (addonService: IAddonService) => {
 			SET_STEP_COMPLETED,
 			plan: planInfo
 		} = useStore();
-
-		const [addonsApi, setAddos] = useState<{
-			addons: Array<IAddonApi>;
-			loading: boolean;
-		}>({
-			addons: [],
-			loading: true
-		});
-
-		const addons = getAddonsByAnnuality(
-			addonsApi.addons,
-			planInfo.annuality
-		);
-
-		useEffect(() => {
-			(async () => {
-				const data = await addonService.getAddon();
-				setAddos(prev => ({
-					...prev,
-					addons: data,
-					loading: false
-				}));
-			})();
-		}, []);
+		const fetchData = () => addonService.getAddon();
+		const { data: addonsApi, loading } = useFetch(fetchData);
+		const addons = addonApiMapper(addonsApi, planInfo.annuality);
 
 		const handleOnSumbit = (event: React.FormEvent<HTMLFormElement>) => {
 			event.preventDefault();
 			const completed = true;
 			if (addonsInfo.addons.length !== 0)
-				SET_STEP_COMPLETED({ completed });
+				SET_STEP_COMPLETED({ payload: { completed } });
 		};
 
 		return (
@@ -66,11 +42,11 @@ const PickAddonsFactory = (addonService: IAddonService) => {
 						className='flex flex-col gap-6 mt-6'
 						onSubmit={handleOnSumbit}
 					>
-						<If predicate={addonsApi.loading}>
-							<Then predicate={addonsApi.loading}>
+						<If predicate={loading}>
+							<Then predicate={loading}>
 								<Skeleton />
 							</Then>
-							<Else predicate={addonsApi.loading}>
+							<Else predicate={loading}>
 								{addons.map(addon => (
 									<Addons key={addon.title} addon={addon} />
 								))}

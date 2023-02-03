@@ -28,7 +28,7 @@ const StepperController = () => {
 			const nextRoute = routes[currentIndex + 1];
 			navigate(`${nextRoute}`);
 			const completed = false;
-			SET_STEP_COMPLETED(completed);
+			SET_STEP_COMPLETED({ payload: completed });
 		} else if (direction === DIRECTION.BACK) {
 			const prevRoute = routes[currentIndex - 1];
 			if (prevRoute === '/') navigate('/');
