@@ -1,3 +1,4 @@
+import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ROUTES } from '../../../constans';
 import { useStore } from '../../context/Store';
@@ -14,7 +15,11 @@ const StepperController = () => {
 	const currentRoute = path.whichIs;
 	const isCompleted = path.completed;
 
-	const navigateTo = (currentRoute, direction, completed) => {
+	const navigateTo = (
+		currentRoute: string,
+		direction: string,
+		completed: boolean
+	) => {
 		const path = currentRoute;
 		const routes = Object.values(ROUTES);
 		const currentIndex = routes.indexOf(path);
@@ -31,7 +36,11 @@ const StepperController = () => {
 		}
 	};
 
-	const handleClick = (currentRoute, direction, completed) => {
+	const handleClick = (
+		currentRoute: string,
+		direction: string,
+		completed: boolean
+	) => {
 		navigateTo(currentRoute, direction, completed);
 	};
 

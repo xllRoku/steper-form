@@ -1,24 +1,40 @@
+import React from 'react';
 import { useState } from 'react';
 import { ANNUALITY } from '../../../constans';
 import { useStore } from '../../context/Store';
 import When from '../components/When';
 
-const Addons = ({ addon }) => {
+export interface IAddon {
+	title: string;
+	content: string;
+	price: number;
+}
+
+interface IAddonsProps {
+	addon: IAddon;
+}
+
+const Addons: React.FC<IAddonsProps> = ({ addon }) => {
 	const {
 		plan: planInfo,
 		addon: addonsInfo,
 		SET_ADDON,
 		REMOVE_ADDON
 	} = useStore();
-	const [selectedAddon, setSelectedAddon] = useState(null);
+	const [selectedAddon, setSelectedAddon] = useState(false);
 	const { title, content, price } = addon;
 
 	const isMonthly = planInfo.annuality === ANNUALITY.MONTHLY;
 	const isYearly = planInfo.annuality === ANNUALITY.YEARLY;
 
-	const findAddon = addons => addons?.find(addon => addon.title === title);
+	const findAddon = (addons: Array<IAddon>) =>
+		addons?.find(addon => addon.title === title);
 
-	const handleAddonSelection = (title, price, checked) => {
+	const handleAddonSelection = (
+		title: string,
+		price: number,
+		checked: boolean
+	) => {
 		if (checked) {
 			SET_ADDON({ title, price });
 		} else {
@@ -26,7 +42,7 @@ const Addons = ({ addon }) => {
 		}
 	};
 
-	const handleOnChange = event => {
+	const handleOnChange = (event: React.ChangeEvent<HTMLInputElement>) => {
 		const checked = event.target.checked;
 		const exists = findAddon(addonsInfo.addons);
 		handleAddonSelection(title, price, checked && !exists);

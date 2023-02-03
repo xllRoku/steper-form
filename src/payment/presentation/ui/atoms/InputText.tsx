@@ -1,7 +1,19 @@
 import React from 'react';
 import When from '../components/When';
 
-const InputText = ({ label, name, handleOnChange, error }) => {
+interface InputTextProps {
+	label: string;
+	name: string;
+	handleOnChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+	error: { [key: string]: string };
+}
+
+const InputText: React.FC<InputTextProps> = ({
+	label,
+	name,
+	handleOnChange,
+	error
+}) => {
 	const errorMessage = error[name];
 
 	return (

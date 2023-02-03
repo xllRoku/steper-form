@@ -1,3 +1,4 @@
+import React from 'react';
 import { useEffect, useState } from 'react';
 import useSetLocation from '../../lib/hooks/useSetLocation';
 import { Else } from '../components/Else';
@@ -7,8 +8,12 @@ import StepperController from '../components/StepperController';
 import Addons from '../molecules/Addons';
 import { getAddonsByAnnuality } from '../../lib/utils/getAddonsByAnnuality';
 import { useStore } from '../../context/Store';
+import {
+	IAddonApi,
+	IAddonService
+} from '../../../domain/services/AddonMemory.service';
 
-const PickAddonsFactory = addonService => {
+const PickAddonsFactory = (addonService: IAddonService) => {
 	return function PickAddonsView() {
 		useSetLocation();
 		const {
@@ -16,7 +21,11 @@ const PickAddonsFactory = addonService => {
 			SET_STEP_COMPLETED,
 			plan: planInfo
 		} = useStore();
-		const [addonsApi, setAddos] = useState({
+
+		const [addonsApi, setAddos] = useState<{
+			addons: Array<IAddonApi>;
+			loading: boolean;
+		}>({
 			addons: [],
 			loading: true
 		});
@@ -37,7 +46,7 @@ const PickAddonsFactory = addonService => {
 			})();
 		}, []);
 
-		const handleOnSumbit = event => {
+		const handleOnSumbit = (event: React.FormEvent<HTMLFormElement>) => {
 			event.preventDefault();
 			const completed = true;
 			if (addonsInfo.addons.length !== 0)
@@ -58,10 +67,10 @@ const PickAddonsFactory = addonService => {
 						onSubmit={handleOnSumbit}
 					>
 						<If predicate={addonsApi.loading}>
-							<Then>
+							<Then predicate={addonsApi.loading}>
 								<Skeleton />
 							</Then>
-							<Else>
+							<Else predicate={addonsApi.loading}>
 								{addons.map(addon => (
 									<Addons key={addon.title} addon={addon} />
 								))}
@@ -77,19 +86,23 @@ const PickAddonsFactory = addonService => {
 
 const Skeleton = () => {
 	const COUNTER = 3;
-	return Array(COUNTER).fill(
-		<div className='w-[480px] h-[80px] flex justify-between items-center border-[1px] border-black p-4 rounded-md '>
-			<div className='w-full flex  items-center gap-6 justify-between'>
-				<div className='flex items-center gap-4'>
-					<div className='w-4 h-4  loader ' name='skeleton' />
-					<div className='flex flex-col '>
-						<h3 className='w-[190px] h-[18px]   rounded-full loader mb-2'></h3>
-						<span className='w-[215px] h-[18px]   rounded-full loader'></span>
+	return (
+		<>
+			{Array(COUNTER).fill(
+				<div className='w-[480px] h-[80px] flex justify-between items-center border-[1px] border-black p-4 rounded-md '>
+					<div className='w-full flex  items-center gap-6 justify-between'>
+						<div className='flex items-center gap-4'>
+							<div className='w-4 h-4  loader ' />
+							<div className='flex flex-col '>
+								<h3 className='w-[190px] h-[18px]   rounded-full loader mb-2'></h3>
+								<span className='w-[215px] h-[18px]   rounded-full loader'></span>
+							</div>
+						</div>
+						<span className='w-12 h-5 loader rounded-full'></span>
 					</div>
 				</div>
-				<span className='w-12 h-5 loader rounded-full'></span>
-			</div>
-		</div>
+			)}
+		</>
 	);
 };
 

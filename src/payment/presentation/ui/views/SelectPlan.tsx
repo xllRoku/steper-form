@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { If } from '../components/If';
 import { Then } from '../components/Then';
 import { Else } from '../components/Else';
@@ -8,29 +8,22 @@ import useSetLocation from '../../lib/hooks/useSetLocation';
 import { getPlansByAnnuality } from '../../lib/utils/getPlansByAnnuality';
 import Switch from '../components/Switch';
 import { useStore } from '../../context/Store';
+import {
+	IPlanApi,
+	IPlanService
+} from '../../../domain/services/PlanMemory.service';
+import { useFetch } from '../../lib/hooks/useFetch';
 
-const SelectPlanFactory = planService => {
+const SelectPlanFactory = (planService: IPlanService) => {
 	return function SelectPlanView() {
 		useSetLocation();
 		const { SET_STEP_COMPLETED, plan: planInfo } = useStore();
-		const [plansApi, setPlans] = useState({
-			plans: [],
-			loading: true
-		});
-		const plans = getPlansByAnnuality(plansApi.plans, planInfo.annuality);
+		const fetchData = () => planService.getPlan();
+		const { data: plansApi, loading } = useFetch<IPlanApi>(fetchData);
 
-		useEffect(() => {
-			(async () => {
-				const data = await planService.getPlan();
-				setPlans(prev => ({
-					...prev,
-					plans: data,
-					loading: false
-				}));
-			})();
-		}, []);
+		const plans = getPlansByAnnuality(plansApi, planInfo.annuality);
 
-		const handleOnSubmit = event => {
+		const handleOnSubmit = (event: React.FormEvent<HTMLFormElement>) => {
 			event.preventDefault();
 			if (planInfo.title) {
 				const completed = true;
@@ -51,11 +44,11 @@ const SelectPlanFactory = planService => {
 					onSubmit={handleOnSubmit}
 				>
 					<div className='flex gap-6'>
-						<If predicate={plansApi.loading}>
-							<Then>
+						<If predicate={loading}>
+							<Then predicate={loading}>
 								<Skeleton />
 							</Then>
-							<Else>
+							<Else predicate={loading}>
 								{plans.map(plan => (
 									<Plan key={plan.title} plan={plan} />
 								))}
@@ -80,17 +73,22 @@ const SelectPlanFactory = planService => {
 
 const Skeleton = () => {
 	const COUNTER = 3;
-	return Array(COUNTER).fill(
-		<button className='w-40 h-44  border-[1px]   p-4 rounded-md flex flex-col justify-between '>
-			<div className='w-[40px] h-[42px]  rounded-full loader' />
-			<div className='flex flex-col items-start'>
-				<p
-					className='w-[80px] h-[16px] 
+
+	return (
+		<>
+			{Array(COUNTER).fill(
+				<button className='w-40 h-44  border-[1px]   p-4 rounded-md flex flex-col justify-between '>
+					<div className='w-[40px] h-[42px]  rounded-full loader' />
+					<div className='flex flex-col items-start'>
+						<p
+							className='w-[80px] h-[16px] 
 				rounded-full mb-2 loader'
-				></p>
-				<span className='w-[52px] h-[16px]  rounded-full loader'></span>
-			</div>
-		</button>
+						></p>
+						<span className='w-[52px] h-[16px]  rounded-full loader'></span>
+					</div>
+				</button>
+			)}
+		</>
 	);
 };
 
